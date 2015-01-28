@@ -9,8 +9,8 @@ import starling.display.Sprite;
 
 class Game
 {
-	public var score : UInt;
-	public var total : UInt;
+	private var score : UInt;
+	private var total : UInt;
 	private var timer : Timer;
 	private var delay : UInt;
 	private var repeat : UInt;
@@ -28,7 +28,7 @@ class Game
 		function(e:Dynamic)
 		{	r.gameDone();});
 		timer.start();
-		addText();
+		addText();		
 	}
 	
 	public function getTimeLeft() : String {return timeLeft;}
@@ -40,25 +40,27 @@ class Game
 	
 	private static function randomText() : String
 	{
-		return switch(Std.random(5))
+		return switch(Std.random(4))
 		{
 			case 0: "RED";
 			case 1: "GREEN";
 			case 2: "BLUE";
+			default:
 			case 3: "YELLOW";
-			default: "MAGENTA";
+			//default: "MAGENTA";
 		}
 	}
 	
 	private static function randomColor() : Int
 	{
-		return switch(Std.random(5))
+		return switch(Std.random(4))
 		{
 			case 0: 0xff0000;//Red
 			case 1: 0x00ff00;//Green
 			case 2: 0x0000ff;//Blue
+			default:
 			case 3: 0xffff00;//Yellow
-			default: 0xff00ff;//Magenta
+			//default: 0xff00ff;//Magenta
 		}
 	}
 	

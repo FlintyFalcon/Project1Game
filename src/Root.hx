@@ -6,8 +6,9 @@ import starling.events.Event;
 import starling.utils.AssetManager;
 import starling.text.TextField;
 import starling.animation.Transitions;
-/*import starling.events.KeyboardEvent;
-import starling.events.TouchEvent;
+import starling.events.KeyboardEvent;
+import flash.ui.Keyboard;
+/*import starling.events.TouchEvent;
 import starling.events.TouchPhase;
 import flash.ui.Keyboard;*/
 
@@ -62,16 +63,17 @@ class Root extends Sprite
 				
 			case GameState.Play://game
 				game = new Game(this);
-				var list : Array<UInt> = [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff00ff];
+				/*var list : Array<UInt> = [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff00ff];
 				for(i in 0...5)
 				{	
 					var but = new GameButton(list[i],button,game);
 					but.x = 100+(i*100); but.y = 300;
-				}
+				}*/
 				Starling.current.stage.addEventListener(Event.ENTER_FRAME, gameUpdate);
-				
+				Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, checkInput);
 			case GameState.Results://results
 				Starling.current.stage.removeEventListener(Event.ENTER_FRAME, gameUpdate);
+				Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, checkInput);
 				haxe.Log.clear();
 				trace("Time's Up!");
 				trace(game.getScore());
@@ -124,6 +126,22 @@ class Root extends Sprite
 	{	
 		state = Results;
 		setStageForGame();
+	}
+	
+	private function checkInput(e:KeyboardEvent)
+	{
+		trace("Input checked: " + e.keyCode);
+		switch(e.keyCode)
+		{
+			case Keyboard.UP:
+				game.checkMatch(0xff0000);
+			case Keyboard.DOWN:
+				game.checkMatch(0x00ff00);
+			case Keyboard.LEFT:
+				game.checkMatch(0x0000ff);
+			case Keyboard.RIGHT:
+				game.checkMatch(0xffff00);
+		}
 	}
 }
 
