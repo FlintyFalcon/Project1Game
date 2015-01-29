@@ -28,10 +28,11 @@ enum GameState
 class Root extends Sprite
 {
 	inline static var titleText = "Project 1\n" +
-	"By\n"+
-	"Temitope Alaga\n"+
+	"By"+
+	"\nTemitope Alaga"+
 	"\nDavid Terry"+
 	"\nIan Humphrey"+
+	"\nPedro Silva"+
 	"\nSound Effects from soundbible.com";
 		
 	public static var assets = new AssetManager();
