@@ -15,7 +15,13 @@ import flash.ui.Keyboard;*/
 
 /**
 * ...
+<<<<<<< HEAD
 * @author ... Temitope Alaga, Andrew Hodel (add other names here)
+=======
+* @author ... Temitope Alaga
+* @author ... David Terry 
+* @author ... Andrew Hodel
+>>>>>>> a60d8cff328738daa5aea5685905db0bcecc80e6
 */
 enum GameState
 {
@@ -27,7 +33,7 @@ enum GameState
 class Root extends Sprite
 {
 	inline static var titleText = "Project 1\n" +
-	"By\nTemitope Alaga\nAndrew Hodel\n (Enter other team members' names here)";
+	"By\nTemitope Alaga\nAndrew Hodel\nDavid Terry\n (Enter other team members' names here)";
 		
 	public static var assets = new AssetManager();
 	private var state : GameState = GameState.Menu;
