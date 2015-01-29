@@ -22,6 +22,7 @@ enum GameState
 	Menu;
 	Play;
 	Results;
+	Instructions;
 }
 	
 class Root extends Sprite
@@ -62,7 +63,31 @@ class Root extends Sprite
 					state = Play;
 					setStageForGame();
 				});
-				
+				var InstrBox = new MenuButton("How To\nPlay",button);
+				InstrBox.x = 600; InstrBox.y = 500;
+				InstrBox.fontSize = 18;
+				InstrBox.addEventListener(Event.TRIGGERED, 
+				function (e:Event)
+				{
+					state = Instructions;
+					setStageForGame();
+				});
+			case GameState.Instructions:
+				var instructions = new TextField(500,500,
+				"Press the arrow key that matches the color"+
+				" of the text that you see (NOT THE COLOR THE WORD SAYS!)."+
+				"You have 30 seconds to get the highest score you can.");
+				instructions.x = 400; instructions.y = 0; 
+				instructions.fontSize = 20; instructions.color = 0xffffff;
+				Starling.current.stage.addChild(instructions);
+				var BackBox = new MenuButton("Back",button);
+				BackBox.x = 600; BackBox.y = 300;
+				BackBox.addEventListener(Event.TRIGGERED, 
+				function (e:Event)
+				{
+					state = Menu;
+					setStageForGame();
+				});
 			case GameState.Play://game
 				game = new Game(this);
 				/*var list : Array<UInt> = [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff00ff];
