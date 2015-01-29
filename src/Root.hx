@@ -15,7 +15,8 @@ import flash.ui.Keyboard;*/
 
 /**
 * ...
-* @author ... Temitope Alaga (add other names here)
+* @author ... Temitope Alaga
+* @author ... David Terry 
 */
 enum GameState
 {
