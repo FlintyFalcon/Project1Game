@@ -27,7 +27,8 @@ enum GameState
 class Root extends Sprite
 {
 	inline static var titleText = "Project 1\n" +
-	"By\nTemitope Alaga\n(Enter other team members' names here)";
+	"By\nTemitope Alaga\n(Enter other team members' names here)"+
+	"\nSound Effects from soundbible.com";
 		
 	public static var assets = new AssetManager();
 	private var state : GameState = GameState.Menu;
@@ -103,10 +104,19 @@ class Root extends Sprite
 		assets.enqueue("assets/arrows.png");
 		assets.enqueue("assets/checkMark.png");
 		assets.enqueue("assets/redX.png");
+		assets.enqueue("assets/redBlank.png");
+		assets.enqueue("assets/blueBlank.png");
+		assets.enqueue("assets/greenBlank.png");
+		assets.enqueue("assets/yellowBlank.png");
+		assets.enqueue("assets/IntroSound.mp3");
+		assets.enqueue("assets/RightSound.mp3");
+		assets.enqueue("assets/WrongSound.mp3");
+		assets.enqueue("assets/EndSound.mp3");
 		assets.loadQueue(function (r:Float)
 		{
 			if(r == 1)
 			{
+			assets.playSound("IntroSound");
 			Starling.juggler.tween(startup.loadingImage, 0.5, 
 			{
 				transition: Transitions.EASE_OUT,
@@ -131,6 +141,7 @@ class Root extends Sprite
 	
 	public function gameDone()
 	{	
+		assets.playSound("EndSound");
 		state = Results;
 		setStageForGame();
 	}

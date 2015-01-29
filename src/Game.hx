@@ -15,14 +15,14 @@ class Game
 	private var delay : UInt;
 	private var repeat : UInt;
 	private var timeLeft : String;
-	private var currentText : TextField;
+	private var currentText : Image;
 	private var answerTimer : Timer;
 	private var answer : Image;
 	
 	public function new(r:Root)
 	{
 		score = total = 0;
-		delay = 1000; repeat = 5;
+		delay = 1000; repeat = 30;
 		timer = new Timer(delay,repeat);
 		timeLeft = "Time Left: " + ((delay*repeat)/1000);
 		timer.addEventListener(TimerEvent.TIMER, timeUpdate);
@@ -48,11 +48,11 @@ class Game
 	{
 		return switch(Std.random(4))
 		{
-			case 0: "RED";
-			case 1: "GREEN";
-			case 2: "BLUE";
+			case 0: "redBlank";
+			case 1: "greenBlank";
+			case 2: "blueBlank";
 			default:
-			case 3: "YELLOW";
+			case 3: "yellowBlank";
 			//default: "MAGENTA";
 		}
 	}
@@ -72,12 +72,16 @@ class Game
 	
 	private function addText()
 	{
+		var lastColor : UInt = currentText == null ? 0: currentText.color;
 		Starling.current.stage.removeChild(currentText);
-		currentText = new TextField(200,200, randomText());
-		currentText.color = randomColor();
-		currentText.fontSize = 50;
+		currentText = new Image(Root.assets.getTexture(randomText()));
+		do
+		{
+			currentText.color = randomColor();
+		}while(lastColor == currentText.color);
+		currentText.scaleX = currentText.scaleY = 3;
 		currentText.width = 300;
-		currentText.x = 350;
+		currentText.x = 350; currentText.y = 100;
 		Starling.current.stage.addChild(currentText);
 	}
 	
@@ -89,8 +93,13 @@ class Game
 		{
 			++score;
 			answer = new Image(Root.assets.getTexture("checkMark"));
+			Root.assets.playSound("RightSound");
 		}
-		else {answer = new Image(Root.assets.getTexture("redX"));}
+		else 
+		{
+			answer = new Image(Root.assets.getTexture("redX"));
+			Root.assets.playSound("WrongSound");
+		}
 		answerTimer.reset();
 		answerTimer.start();
 		Starling.current.stage.addChild(answer);
